@@ -1,0 +1,53 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+ <!-- main-container -->
+ <div class="container  d-flex mt-5 justify-content-center">
+    <!-- flex rows -->
+    <div class="row w-75 shadow-lg " >
+        <!--Login  -->
+        <div class="col-lg-12 d-flex justify-content-between bg-danger text-light py-4">
+            
+            <div class=" d-flex justify-content-start">
+                <div>
+                    <h1 class="mb-4 w-100">Register</h1>
+                    <p></p></div>
+
+           </div>
+       
+              
+          </div>
+           <!--form  -->
+          <div class="col-lg-12  justify-content-between  text-dark py-4">
+            <form action="{% url 'register' %}" method="POST" class="mx-5">
+                {% csrf_token %}
+
+                {% for field in form %}
+                <div class="mb-3">
+                  <label for="exampleInputEmail1" class="form-label ">{{field.label}} :</label>
+                  {{field}}
+                
+                </div>
+
+                {% if field.errors %}
+                {% for error in field.errors %}
+                <p class="lead text-danger">{{error}}</p>
+                {% endfor %}
+                {% endif %}
+               
+                {% endfor %}
+                
+              
+                <button type="submit" class="btn btn-outline-danger">Submit</button>
+                
+                <p class="lead my-3">Already have an account? <a class="text-danger" href="{% url 'login'%}">Login</a></p>
+              </form>
+
+          </div>
+   
+     
+</div>
+</div>
+
+{% endblock content %}

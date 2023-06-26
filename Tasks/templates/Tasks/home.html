@@ -1,0 +1,78 @@
+{% extends 'main.html' %}
+{% load static %}
+
+
+
+{% block content %}
+  <!-- main-container -->
+    <div class="container  d-flex mt-5 justify-content-center">
+        <!-- flex rows -->
+        <div class="row w-75 shadow-lg " >
+            <!-- user name and logout  -->
+            <div class="col-lg-12 d-flex justify-content-between bg-danger text-light py-4">
+                
+                <div class=" d-flex justify-content-start">
+                    <div>
+                        <h1 class="mb-4 w-100">Hello {{profile.user.username}},</h1>
+                        {% if tasks %}
+                        <p>You have {{profile.counttask}} incomplete task</p></div>
+                        {% else %}
+                        <p>No task available</p></div>
+                        {% endif %}
+
+               </div>
+             <!-- logout-->
+               <div class=" d-flex justify-content-end align-items-start">
+                <a href="{% url 'logout' %}" class="text-light text-decoration-none">Logout</a>
+             </div>
+                 
+            </div>
+
+           <!-- search-bar -->
+           <div class="col-lg-12 d-flex justify-content-between bg-light text-light py-4">
+
+            <div class="d-flex justify-content-start">
+                 <form method="GET" class="d-flex">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="Search">
+                    <button class="btn btn-outline-danger" type="submit">Search</button>
+                  </form>
+
+            </div>
+            <!-- add bar -->
+            <div class="d-flex justify-content-end">
+                <a href="{% url 'create' %}"><i class="bi bi-plus text-dark display-6"></i></a>
+            </div>
+           </div>
+          
+           <!-- Task list -->
+           {% for task in tasks %}
+           <div  class="col-lg-12 d-flex justify-content-between bg-light text-light py-4 border-top ">
+            <!-- radio input -->
+            <div class="d-flex justify-content-start align-items-center urlchange" data-href="{% url 'edit' task.id %}">
+                <div class="form-check">
+                     {% if task.complete == True%}
+                    <label class="form-check-label text-dark text-secondary text-decoration-line-through  urlchange" data-href="{% url 'edit' task.id %}" for="flexRadioDefault1">
+                      {{task.name}}
+                    </label>
+                    {% else %}
+                    <label class="form-check-label text-dark text-secondary   urlchange" data-href="{% url 'edit' task.id %}" for="flexRadioDefault1">
+                      {{task.name}}
+                    </label>
+                    {% endif %}
+
+                  </div>
+
+            </div>
+            <!-- cancel icon -->
+            <i class="bi bi-x display-6 delete m-0 text-dark d-flex justify-content-end" data-id="{{task.id}}" data-action="delete" ></i></i>
+            </div>
+          
+           {% endfor %}
+         
+    
+          </div>
+
+<script src="{% static 'js/location.js' %}"></script>
+<script src="{% static 'js/delete.js' %}"></script>
+
+{% endblock %}
