@@ -16,7 +16,7 @@ def home (request):
     else:
         search = ''
     tasks = profile.task_set.filter( name__icontains = search)
-    context = {'profile':profile , 'tasks': tasks}
+    context = {'profile':profile , 'tasks': tasks, 'search' : search}
     return render(request,'Tasks/home.html', context )
 
 def loginuser(request):
